@@ -5,7 +5,7 @@ import pymodle.dsksysfunction as dun
 from pymodle.dskmod import GeneralTools as G
 import json, os
 
-filename = "D:\dsk\pythons\dsksys\dskdata.json"
+filename = "D:\dsk\pythons\dsksys\DSK System\dskdata.json"
 
 print(Fore.BLUE + Style.BRIGHT)
 G.cs()
