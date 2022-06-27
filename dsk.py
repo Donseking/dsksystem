@@ -96,7 +96,7 @@ while True :
             c = sting[0]
             if c[0] == '-' or c[0] == '+' :
                 dun.switch(sting)
-            elif c == "dskmath" :
+            elif c == "math" :
                 os.system("py dskmathsystem.py")
             elif c == "chat" :
                 os.system("python D:\\dsk\\pythons\\socket_practice\\chat.py")
