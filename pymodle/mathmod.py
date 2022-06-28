@@ -9,23 +9,17 @@ class MathTools :
 
 
     # x = (xa, xb, xc)  y = (ya, yb, yc)
-    def cros(x : tuple, y : tuple, angle = False, thida = 0) :
-        if angle == False :
-            rxa = (x[1], x[2])
-            rya = (y[1], y[2])
-            na = MathTools.second_order(rxa, rya)
-            rxb = (x[2], x[0])
-            ryb = (y[2], y[0])
-            nb = MathTools.second_order(rxb, ryb)
-            rxc = (x[0], x[1])
-            ryc = (y[0], y[1])
-            nc = MathTools.second_order(rxc, ryc)
-            return (na, nb, nc)
-        else :
-            xlong = (x[0]**2 + x[1]**2 + x[2]**2)**0.5
-            ylong = (y[0]**2 + y[1]**2 + y[2]**2)**0.5
-            ans = xlong*ylong*math.sin(math.radians(thida))
-            return ans
+    def cros(x : tuple, y : tuple) :
+        rxa = (x[1], x[2])
+        rya = (y[1], y[2])
+        na = MathTools.second_order(rxa, rya)
+        rxb = (x[2], x[0])
+        ryb = (y[2], y[0])
+        nb = MathTools.second_order(rxb, ryb)
+        rxc = (x[0], x[1])
+        ryc = (y[0], y[1])
+        nc = MathTools.second_order(rxc, ryc)
+        return (na, nb, nc)
 
 
 
@@ -73,13 +67,30 @@ class MathTools :
             return None
 
     def matrix_multiplication(A : list, B : list) :
-        if len(A[0]) == len(A[1]) and len(A[1]) == len(A[2]) :
-            if len(B[0]) == len(B[1]) and len(B[1]) == len(B[2]) :
-                if len(A[0]) == len(B):
-                    a = np.array(A)
-                    b = np.array(B)
-                    new = a.dot(b)
-        return new
+        a = False
+        b = False
+        if len(A[0]) == len(B) :
+            rowlong = len(A[0])
+            for i in range(1, len(A)) :
+                if len(A[i]) != rowlong :
+                    print("MathMod - matrix_pultiplication : 輸入的首矩陣列數並沒有相同的長度")
+                    break
+                else :
+                    a = True
+            rowlong = len(B[0])
+            for i in range(1, len(B)) :
+                if len(B[i]) != rowlong :
+                    print("MathMod - matrix_pultiplication : 輸入的次矩陣列數並沒有相同的長度")
+                    break
+                else :
+                    b = True
+            if a == True and b == True :
+                c = np.array(A)
+                d = np.array(B)
+                ans = c.dot(d)
+                return ans
+        else :
+            print("MathMod - matrix_pultiplication : 輸入的次矩陣行數[ 橫向 ]要與首矩陣的列數[ 直向 ]相同")
 
 
     # cdt (x, y)  line [ax + by + c = 0]: (a, b, c) || cdt (x, y, z) line [ax + by + cz + d = 0]: (a, b, c, d)

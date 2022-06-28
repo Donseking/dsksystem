@@ -1,6 +1,21 @@
 import json, os
+from this import s
 
 coder = "utf8"
+
+
+numlist = {
+    "一" : 1,
+    "二" : 2,
+    "三" : 3,
+    "四" : 4,
+    "五" : 5,
+    "六" : 6,
+    "七" : 7,
+    "八" : 8,
+    "九" : 9,
+    "十" : 10
+}
 
 class StringTool :
 
@@ -59,7 +74,7 @@ class FileTool :
         pass
 
     def addcmd(cmdname : str, cmdmean : str, filename : str):
-        if filename == "D:\dsk\pythons\dsksys\dskdata.json" :
+        if filename == "D:\dsk\pythons\dsksys\DSK System\dskdata.json" :
             with open(filename, encoding = "utf8") as f :
                 p = json.load(f)
             cmdlist = p["cmdlist"]
@@ -75,7 +90,7 @@ class FileTool :
                 json.dump(p, f, indent = 4)
 
     def decmd(cmdname : str, filename : str) :
-        if filename == "D:\dsk\pythons\dsksys\dskdata.json" :
+        if filename == "D:\dsk\pythons\dsksys\DSK System\dskdata.json" :
             with open(filename, "r+", encoding = coder) as f :
                 p = json.load(f)
             cmdlist = p["cmdlist"]
@@ -91,7 +106,7 @@ class FileTool :
                 json.dump(p, f, indent = 4)
 
     def reloadcmd(OldCmdName, NewCmdName : str, NewCmdMean : str, FileName : str):
-        if FileName == "D:\dsk\pythons\dsksys\dskdata.json" :
+        if FileName == "D:\dsk\pythons\dsksys\DSK System\dskdata.json" :
             with open(FileName, encoding = "utf8") as f :
                 p = json.load(f)
             cmdlist = p["cmdlist"]
@@ -106,6 +121,27 @@ class FileTool :
             }
             with open(FileName, "w") as f :
                 json.dump(p, f, indent = 4)
+
+    def detailcmd():
+        try :
+            with open("D:\dsk\pythons\dsksys\DSK System\dskdata.json", encoding = "utf8") as file :
+                data = json.load(file)
+        except FileNotFoundError :
+            print("dskmod.py - detailcmd() : 找不到檔案")
+            pass
+        cmdlist = data["cmdlist"]
+        userlist = data["userlist"]
+        decmdlist = data["decmdlist"]
+        cmd_ = input("選擇的命令 : ")
+        detailmean = input("命令的詳細描述:\n   > ")
+        decmdlist[cmd_] = detailmean
+        data = {
+            "userlist" : userlist,
+            "cmdlist" : cmdlist,
+            "decmdlist" : decmdlist
+        }
+        with open("D:\dsk\pythons\dsksys\DSK System\dskdata.json", "w", encoding = "utf8") as f :
+            json.dump(data, f, indent = 4)
 
 class Turning :
 
@@ -144,6 +180,14 @@ class Turning :
     def list_turn_str(thelist : list, thestr : str) :
         re = thestr.join(thelist)
         return re
+
+    def num_turn_chinese(num : int) :
+        for i in numlist :
+            if num == numlist[i] :
+                return i
+
+    def character_around(s : str, around = s) :
+        pass
 
 class GeneralTools :
     def cs():

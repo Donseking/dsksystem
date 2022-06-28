@@ -137,7 +137,7 @@ def switch(lister : list) :                                        # switch
                     print("Error")
                     pass
             case "dsk" :
-                os.system("py dsk.py")
+                os.system('cd D:\dsk\pythons\dsksys\DSK System & py dsk.py')
                 sleep(1)
                 print(exit())
             case "tb" :
@@ -165,7 +165,7 @@ def switch(lister : list) :                                        # switch
                     cmds = dskmod.StringTool.border(cmd, 115, line = "-", boder = "down")
                     print(cmds)
             case "ad" :
-                fname = "D:\dsk\pythons\dsksys\dskdata.json"
+                fname = "D:\dsk\pythons\dsksys\DSK System\dskdata.json"
                 ag = dskmod.Turning.list_turn_str(lister[1:], " ")
                 if ag == "add" :
                     cmdname = input("命令名稱 :\n     > ")
@@ -179,6 +179,12 @@ def switch(lister : list) :                                        # switch
                     newcmdname = input("新命令名稱 :\n      > ")
                     newcmdmean = input("新命令作用 :\n      > ")
                     FileTool.reloadcmd(oldcmd, newcmdname, newcmdmean, fname)
+            case "math" :
+                os.system("py dskmathsystem.py")
+                sleep(1)
+                print(exit())
+            case "dt" :
+                dskmod.FileTool.detailcmd()
             case "" :
                 G.cs()
                 print("請輸入命令")

@@ -29,7 +29,8 @@
         "dir": "\u67e5\u770b\u7576\u524d\u8cc7\u6599\u593e",
         "cd": "\u79fb\u52d5\u5230\u6307\u5b9a\u8cc7\u6599\u593e",
         "ad": "\u589e\u52a0\u547d\u4ee4",
-        "dskmath": "\u9032\u5165 math \u6a21\u5f0f"
+        "math": "\u9032\u5165\u6578\u5b78\u6a21\u5f0f",
+        "dt": "\u589e\u52a0\u547d\u4ee4\u7684\u63cf\u8ff0"
     },
     "decmdlist": {
         "et": "\u95dc\u9589 dsk \u7cfb\u7d71 \n -et \u7121\u53c3\u6578",
@@ -50,6 +51,8 @@
         "ad": "\u589e\u52a0\u547d\u4ee4 \n -ad [ add / reload / del ]",
         "+": "\u57f7\u884c DOS \u547d\u4ee4 / + [ \u8981\u57f7\u884c\u7684\u547d\u4ee4\u5373\u5176\u53c3\u6578 ]",
         "kaser": "\u5c07\u6587\u4ef6\u9032\u884c\u52a0\u5bc6 / -kaser [ \u6587\u4ef6\u540d\u7a31 ] [ \u4f4d\u79fb\u91cf 1 - 5 ]",
-        "t": "\u958b\u555f txt \u6a94 / -t [ \u6a94\u6848\u540d\u7a31 ( \u4e0d\u7528\u526f\u6a94\u540d ) ]"
+        "t": "\u958b\u555f txt \u6a94 / -t [ \u6a94\u6848\u540d\u7a31 ( \u4e0d\u7528\u526f\u6a94\u540d ) ]",
+        "p": "\u57f7\u884c python \u6a94 / -p [ \u8981\u57f7\u884c\u7684 python \u6a94\u6848 ( \u4e0d\u7528\u526f\u6a94\u540d ) ]",
+        "dt": "\u589e\u52a0\u547d\u4ee4\u7684\u8a73\u7d30\u63cf\u8ff0 / -dt \u7121\u53c3\u6578"
     }
 }

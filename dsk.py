@@ -8,9 +8,6 @@ import json, os
 filename = "D:\dsk\pythons\dsksys\DSK System\dskdata.json"
 
 print(Fore.BLUE + Style.BRIGHT)
-G.cs()
-chose = input("login[l] or register[r] :\n  > ")
-G.cs()
 
 with open(filename, encoding = "utf8") as f:
     p = json.load(f)
@@ -74,12 +71,24 @@ def login(ch) :                                                 # login
             break
         else :
             print(exit())
-    while chose == '' or (chose != 'l' and chose != 'r') :
+    while chose == '' :
         G.cs()
         print("請輸入\n")
         chose = input("login[l] or register[r] :\n  > ")
         if chose != '' :
             break
+
+    while chose != 'l' and chose != 'r' :
+        G.cs()
+        print("請輸入\n")
+        chose = input("login[l] or register[r] :\n  > ")
+        if chose == 'l' or chose == "r":
+            G.cs()
+            login(chose)
+
+G.cs()
+chose = input("login[l] or register[r] :\n  > ")
+G.cs()
 
 if chose == "p":
     pass
@@ -90,7 +99,7 @@ colorama.init()
 while True :
     PATH = os.getcwd()
     try :
-        sting = input(Fore.LIGHTMAGENTA_EX + Style.BRIGHT + f" +DSK SYSTEM+ {PATH} > " + Style.RESET_ALL + Fore.CYAN + Style.BRIGHT).split()
+        sting = input(Fore.LIGHTMAGENTA_EX + Style.BRIGHT + f" + DSK SYSTEM + {PATH} > " + Style.RESET_ALL + Fore.CYAN + Style.BRIGHT).split()
         print(Fore.BLUE + Style.BRIGHT)
         if len(sting) != 0 :
             c = sting[0]
