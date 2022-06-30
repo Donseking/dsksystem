@@ -8,7 +8,6 @@ import json, os
 filename = "dskdata.json"
 
 print(Fore.BLUE + Style.BRIGHT)
-
 with open(filename, encoding = "utf8") as f:
     p = json.load(f)
 cmdlist = p["cmdlist"]
