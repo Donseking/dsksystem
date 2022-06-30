@@ -74,7 +74,7 @@ class FileTool :
         pass
 
     def addcmd(cmdname : str, cmdmean : str, filename : str):
-        if filename == "D:\dsk\pythons\dsksys\DSK System\dskdata.json" :
+        if filename == "dskdata.json" :
             with open(filename, encoding = "utf8") as f :
                 p = json.load(f)
             cmdlist = p["cmdlist"]
@@ -90,7 +90,7 @@ class FileTool :
                 json.dump(p, f, indent = 4)
 
     def decmd(cmdname : str, filename : str) :
-        if filename == "D:\dsk\pythons\dsksys\DSK System\dskdata.json" :
+        if filename == "dskdata.json" :
             with open(filename, "r+", encoding = coder) as f :
                 p = json.load(f)
             cmdlist = p["cmdlist"]
@@ -106,7 +106,7 @@ class FileTool :
                 json.dump(p, f, indent = 4)
 
     def reloadcmd(OldCmdName, NewCmdName : str, NewCmdMean : str, FileName : str):
-        if FileName == "D:\dsk\pythons\dsksys\DSK System\dskdata.json" :
+        if FileName == "dskdata.json" :
             with open(FileName, encoding = "utf8") as f :
                 p = json.load(f)
             cmdlist = p["cmdlist"]
@@ -124,7 +124,7 @@ class FileTool :
 
     def detailcmd():
         try :
-            with open("D:\dsk\pythons\dsksys\DSK System\dskdata.json", encoding = "utf8") as file :
+            with open("dskdata.json", encoding = "utf8") as file :
                 data = json.load(file)
         except FileNotFoundError :
             print("dskmod.py - detailcmd() : 找不到檔案")
@@ -140,7 +140,7 @@ class FileTool :
             "cmdlist" : cmdlist,
             "decmdlist" : decmdlist
         }
-        with open("D:\dsk\pythons\dsksys\DSK System\dskdata.json", "w", encoding = "utf8") as f :
+        with open("dskdata.json", "w", encoding = "utf8") as f :
             json.dump(data, f, indent = 4)
 
 class Turning :

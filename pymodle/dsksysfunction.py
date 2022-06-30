@@ -6,7 +6,7 @@ from time import sleep
 from pathlib import Path
 from colorama import Style
 
-filename = "D:\dsk\pythons\dsksys\DSK System\dskdata.json"
+filename = "dskdata.json"
 
 with open(filename, encoding = "utf8") as f:
     p = json.load(f)
@@ -137,7 +137,7 @@ def switch(lister : list) :                                        # switch
                     print("Error")
                     pass
             case "dsk" :
-                os.system('cd D:\dsk\pythons\dsksys\DSK System & py dsk.py')
+                os.system('py dsk.py')
                 sleep(1)
                 print(exit())
             case "tb" :
@@ -165,7 +165,7 @@ def switch(lister : list) :                                        # switch
                     cmds = dskmod.StringTool.border(cmd, 115, line = "-", boder = "down")
                     print(cmds)
             case "ad" :
-                fname = "D:\dsk\pythons\dsksys\DSK System\dskdata.json"
+                fname = "dskdata.json"
                 ag = dskmod.Turning.list_turn_str(lister[1:], " ")
                 if ag == "add" :
                     cmdname = input("命令名稱 :\n     > ")

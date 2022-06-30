@@ -5,7 +5,7 @@ import pymodle.dsksysfunction as dun
 from pymodle.dskmod import GeneralTools as G
 import json, os
 
-filename = "D:\dsk\pythons\dsksys\DSK System\dskdata.json"
+filename = "dskdata.json"
 
 print(Fore.BLUE + Style.BRIGHT)
 
@@ -107,8 +107,6 @@ while True :
                 dun.switch(sting)
             elif c == "math" :
                 os.system("py dskmathsystem.py")
-            elif c == "chat" :
-                os.system("python D:\\dsk\\pythons\\socket_practice\\chat.py")
         else :
             G.cs()
             print("請輸入")
