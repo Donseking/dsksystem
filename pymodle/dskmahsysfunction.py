@@ -1,3 +1,4 @@
+import json
 from pymodle.mathmod import MathTools as m
 from pymodle.dskmod import GeneralTools as G
 
@@ -5,9 +6,8 @@ def MathMod(cmd : list) :
     prefix = cmd[0]
     for i in cmd[1:] :
         cmd[cmd.index(i)] = int(i)
-    if prefix[0] == "#" :
-        pre = prefix[1:]
-        match pre :
+    if prefix[0] != "#" :
+        match prefix :
             case "D" :
                 G.cs()
                 ans = None
@@ -106,14 +106,34 @@ def MathMod(cmd : list) :
                 num = tuple(list(map(int, input("一元二次方程式的係數 [ 空格相隔 ] > ").split())))
                 ans = m.one_dimensional_equation(num)
                 print(ans)
-            case "mathcmd" :
-                try :
-                    with open("mathcmddata.json", "r", encoding = "utf8") as f :
-                        data = f.read()
-                    math = data["all_cmd"]
-                    print(math)
-                except FileNotFoundError :
-                    print("dskmahsysfunction.py > mathmod > mathcmd : 找不到檔案")
             case _ :
                 G.cs()
                 print("沒有這個數學函式命令")
+    elif prefix[0] == "#" :
+        match prefix[1:] :
+            case "ad" :
+                cmdes = input("要增加的命令 > ")
+                d = input("命令的簡單描述\n     > ")
+                de = input("命令的詳細描述\n     > ")
+                try :
+                    with open("pymodle\mathcmddata.json", "r", encoding = "UTF8") as f :
+                        c = json.load(f)
+                    mathcmdlist = c["mathcmdlist"]
+                    decmdlist = c["decmdlist"]
+                    mathcmdlist[cmdes] = d
+                    decmdlist[cmdes] = de
+                    c = {
+                        "mathcmdlist": mathcmdlist,
+                        "decmdlist" : decmdlist
+                    }
+                    with open("pymodle\mathcmddata.json", "w") as f :
+                        json.dump(c, f, indent = 4)
+                except FileNotFoundError :
+                    print("dskmahsysfunction.py > mathmod > ad : 找不到檔案")
+            case "mathcmd" :
+                try :
+                    with open("pymodle\mathcmddata.json", "r", encoding = "utf8") as f :
+                        data = json.load(f)
+                    print(data)
+                except FileNotFoundError :
+                    print("dskmahsysfunction.py > mathmod > mathcmd : 找不到檔案")

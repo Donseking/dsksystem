@@ -5,10 +5,10 @@ from pymodle.dskmod import GeneralTools as G
 import pymodle.dsksysfunction as dun
 from pymodle.dskmahsysfunction import MathMod
 
-G.cs()
 colorama.init()
+G.cs()
 
-print("-"*5 + "+ dskmath +" + "-"*5 + "\n")
+print("-"*15 + "+ dskmath +" + "-"*15 + "\n")
 
 while True :
     print(Fore.BLUE + Style.BRIGHT)

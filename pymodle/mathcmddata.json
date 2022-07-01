@@ -1,4 +1,8 @@
 {
-    "all_cmd" : {
+    "mathcmdlist": {
+        "D": "\u8a08\u7b97\u9ede\u5230\u7dda\u7684\u8ddd\u96e2"
+    },
+    "decmdlist": {
+        "D": "\u8a08\u7b97\u9ede\u5230\u7dda\u7684\u8ddd\u96e2 \\n D"
     }
 }

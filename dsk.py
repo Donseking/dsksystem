@@ -93,8 +93,9 @@ if chose == "p":
     pass
 else :
     login(chose)
-G.cs()
 colorama.init()
+G.cs()
+
 while True :
     PATH = os.getcwd()
     try :
