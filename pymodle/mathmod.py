@@ -108,14 +108,13 @@ class MathTools :
     # line : ax2 + bx + c = 0 (a, b, c)
     def one_dimensional_equation(line : tuple) :
         if (line[1]**2 - 4*line[0]*line[2]) > 0 and line[0] != 0:
-            x1 = -line[1] + (line[1]**2 - 4*line[0]*line[2])**0.5
-            x2 = -line[1] - (line[1]**2 - 4*line[0]*line[2])**0.5
-            x1 = x1/2*line[0]
-            x2 = x2/2*line[0]
+            d = 2*line[0]
+            inum = str(line[1]**2 - 4*line[0]*line[2])
+            x1 = str(0 - line[1]) + " + ( " + inum + " )^0.5  / " + str(d)
+            x2 = str(0 - line[1]) + " - ( " + inum + " )^0.5  / " + str(d)
             return [x1, x2]
         elif (line[1]**2 - 4*line[0]*line[2]) == 0 and line[0] != 0 :
-            x1 = -line[1] + (line[1]**2 - 4*line[0]*line[2])**0.5
-            x1 = x1/2*line[0]
+            x1 = "[ -" + str(line[1]) + "+ (" + str(line[1]) + "^2 + " + "4*" + str(line[0]) + "*" + str(line[2]) + ")^0.5 ] / 2*" + str(line[0])
             return x1
         else :
             return "無解"
@@ -123,29 +122,59 @@ class MathTools :
     # Vector (a, b) | (a, b, c)
     def vector_long(v : tuple) :
         if len(v) == 2 :
-            return (v[0]**2 + v[1]**2)**0.5
+            x = str(v[0]**2 + v[1]**2)
+            return x + "^0.5"
         elif len(v) == 3 :
-            return (v[0]**2 + v[1]**2 + v[2]**2)**0.5
+            x = str(v[0]**2 + v[1]**2 + v[2]**2)
+            return x + "^0.5"
 
-    def vectorplus(v1 :tuple, v2: tuple) :
-        v30 = v1[0] + v2[0]
-        v31 = v1[1] + v2[1]
-        v32 = v1[2] + v2[2]
-        return (v30, v31, v32)
+    def vecotr_plus(v1 : tuple, v2 : tuple) :
+        a = []
+        if len(v1) == len(v2) :
+            for i in range(len(v1)) :
+                a.append(v1[i] + v2[i])
+        elif len(v1) != len(v2) :
+            print("mathmod.py > class MathTools > vector_plus : 向量要相同長度")
+        return tuple(a)
+
+    def two_cdt_to_vector(a : list, b : list) :
+        if len(a) == 3 and len(b) == 3 :
+            c = int(b[0] - a[0])
+            d = int(b[1] - a[1])
+            e = int(b[2] - a[2])
+            l = (c, d, e)
+            return l
+        elif len(a) == 2 and len(b) == 2 :
+            c = int(b[0] - a[0])
+            d = int(b[1] - a[1])
+            l = (c, d)
+            return l
+        else :
+            return "mathmod > two_cdt_to_vector : 輸入錯誤"
 
     # ax + by + c = 0
     # L = (a, b, c) | M = (d, e, f) 係 數
     def intersection_of_two_lines(L : list, M : list) :
         a = L[0]
+        b = L[1]
+        c = L[2]
         d = M[0]
-        b = 0 - (L[1]/a)
-        c = L[2]/a
-        for i in L :
-            L[L.index(i)] = i*d
-        for i in M :
-            M[M.index(i)] = i*a
-        bdae = L[1] - M[1]
-        cdaf = L[2] - M[2]
-        y = 0-(cdaf/bdae)
-        x = b*y - c
+        e = M[1]
+        f = M[2]
+        g = b*d - e*a
+        h = f*a - c*d
+        k = -1*a*g
+        l = b*h - c*g
+        if type(h/g) == float :
+            i = h - (h%g)
+            j = i/g
+            y = str(int(j)) + " + " + str(int(h%g)) + "/" + str(int(g))
+        else :
+            y = str(h/g)
+        if type(l/k) == float :
+            m = l%k
+            n = (l - m)/k
+            x = str(int(n)) + " + " + str(int(m)) + '/' + str(int(k))
+        else :
+            x = str(l/k)
         return (x, y)

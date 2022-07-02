@@ -105,7 +105,42 @@ def MathMod(cmd : list) :
             case "ode" :
                 num = tuple(list(map(int, input("一元二次方程式的係數 [ 空格相隔 ] > ").split())))
                 ans = m.one_dimensional_equation(num)
+                if type(ans) == list :
+                    for i in ans :
+                        print(i)
+                else :
+                    print(ans)
+            case "itl" :
+                l = input("首直線方程式係數 ( a, b, c )\n   > ").split()
+                lm = input("首直線方程式係數 ( d, e, f )\n   > ").split()
+                l = list(map(int, l))
+                lm = list(map(int, lm))
+                if len(l) == 3 and len(lm) :
+                    ans = m.intersection_of_two_lines(l, lm)
+                for i in ans :
+                    print(i)
+            case "vct" :
+                a = input("第一個座標點 > ").split()
+                b = input("第二個座標點 > ").split()
+                a = list(map(int, a))
+                b = list(map(int, b))
+                ans = m.two_cdt_to_vector(a, b)
                 print(ans)
+            case "vlon" :
+                v = input("向量 > ").split()
+                v = tuple(list(map(int, v)))
+                ans = m.vector_long(v)
+                print(ans)
+            case "v+" :
+                v1 = input("首向量 > ").split()
+                v2 = input("次向量 > ").split()
+                v1 = tuple(list(map(int, v1)))
+                v2 = tuple(list(map(int, v2)))
+                if len(v1) == len(v2) :
+                    ans = m.vecotr_plus(v1, v2)
+                    print(ans)
+                elif len(v1) != len(v2) :
+                    print("dskmahsysfunction.py > mathmod > v+(cmd) : 向量要相同長度")
             case _ :
                 G.cs()
                 print("沒有這個數學函式命令")
