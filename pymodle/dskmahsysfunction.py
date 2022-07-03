@@ -1,11 +1,12 @@
 import json
 from pymodle.mathmod import MathTools as m
 from pymodle.dskmod import GeneralTools as G
+import pymodle.dskmod as dm
 
 def MathMod(cmd : list) :
     prefix = cmd[0]
-    for i in cmd[1:] :
-        cmd[cmd.index(i)] = int(i)
+    # for i in cmd[1:] :
+    #     cmd[cmd.index(i)] = int(i)
     if prefix[0] != "#" :
         match prefix :
             case "D" :
@@ -169,6 +170,17 @@ def MathMod(cmd : list) :
                 try :
                     with open("pymodle\mathcmddata.json", "r", encoding = "utf8") as f :
                         data = json.load(f)
-                    print(data)
+                    mathcmdlist = data["mathcmdlist"]
+                    print(mathcmdlist[cmd[1]])
                 except FileNotFoundError :
                     print("dskmahsysfunction.py > mathmod > mathcmd : 找不到檔案")
+            case "dicmd" :
+                try :
+                    with open("pymodle\mathcmddata.json", "r", encoding = "utf8") as f :
+                        data = json.load(f)
+                    decmdlist = data["decmdlist"]
+                    print(decmdlist[cmd[1]])
+                except FileNotFoundError :
+                    print("dskmahsysfunction.py > mathmod > mathcmd : 找不到檔案")
+            case _:
+                print("dskmahsysfunction.py > mathmod > mathcmd : 沒有這個指令")
