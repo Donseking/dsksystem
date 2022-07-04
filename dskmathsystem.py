@@ -9,9 +9,9 @@ colorama.init()
 G.cs()
 
 print("-"*15 + "+ dskmath +" + "-"*15 + "\n")
+print(Fore.BLUE + Style.BRIGHT)
 
 while True :
-    print(Fore.BLUE + Style.BRIGHT)
     try :
         sting = input(Fore.GREEN + Style.BRIGHT + "  > " + Style.RESET_ALL + Fore.CYAN + Style.BRIGHT).split()
         print(Fore.BLUE + Style.BRIGHT)

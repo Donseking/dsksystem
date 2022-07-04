@@ -1,15 +1,24 @@
+import os, json
+
+os.system("py s.py")
+filename = "dskdata.json"
+try :
+    with open(filename, encoding = "UTF8") as f :
+        p = json.load(f)
+except FileNotFoundError :
+    print("dsk.py > open dskdata.json : 找不到檔案")
+    pass
+os.system("py k.py")
+
 import colorama
 from colorama import Fore
 from colorama import Style
 import pymodle.dsksysfunction as dun
+import pymodle.dskmod as dm
 from pymodle.dskmod import GeneralTools as G
-import json, os
-
-filename = "dskdata.json"
+from pytube import YouTube as yt
 
 print(Fore.BLUE + Style.BRIGHT)
-with open(filename, encoding = "utf8") as f:
-    p = json.load(f)
 cmdlist = p["cmdlist"]
 userlist = p["userlist"]
 decmdlist = p["decmdlist"]
@@ -94,8 +103,6 @@ if chose == "p":
 else :
     login(chose)
 colorama.init()
-G.cs()
-
 while True :
     PATH = os.getcwd()
     try :
@@ -107,9 +114,19 @@ while True :
                 dun.switch(sting)
             elif c == "math" :
                 os.system("py dskmathsystem.py")
+                pass
+            elif c == "py" or c == "python" :
+                os.system("python")
+            elif c == "pytube" :
+                url = input("網址\n     > ")
+                y = yt(url)
+                print("正在下載 ...")
+                y.streams.get_highest_resolution().download('./videos')
+                print("下載完成 !!")
         else :
             G.cs()
             print("請輸入")
     except KeyboardInterrupt :
         G.cs()
         print("\n++ 輸入錯誤 ++\n")
+        pass

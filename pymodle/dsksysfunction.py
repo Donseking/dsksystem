@@ -1,15 +1,22 @@
+import os, json
+
+os.system("py s.py")
+filename = "dskdata.json"
+try :
+    with open(filename, encoding = "UTF8") as f :
+        p = json.load(f)
+except FileNotFoundError :
+    print("dsk.py > open dskdata.json : 找不到檔案")
+    pass
+os.system("py k.py")
+
 from pymodle.dskmod import GeneralTools as G
 from pymodle.dskmod import FileTool
 from pymodle import dskmod
-import os, json, pathlib
+import pathlib
 from time import sleep
 from pathlib import Path
 from colorama import Style
-
-filename = "dskdata.json"
-
-with open(filename, encoding = "utf8") as f:
-    p = json.load(f)
 cmdlist = p["cmdlist"]
 userlist = p["userlist"]
 decmdlist = p["decmdlist"]
@@ -25,6 +32,7 @@ def switch(lister : list) :                                        # switch
                 print(o)
             case "et" :
                 G.cs()
+                # os.system("py k.py")
                 print(Style.RESET_ALL)
                 print(exit())
             case "cd" :
@@ -112,30 +120,33 @@ def switch(lister : list) :                                        # switch
                 dskmod.Turning.file_turn_txt()
             case "kaser" :
                 G.cs()
-                fname = lister[1]
-                dal = int(lister[2])
-                try :
-                    with open(fname, "r+", encoding = "utf8") as f :
-                        fdata = f.readlines()
-                except FileNotFoundError :
-                    print("找不到檔案")
-                    pass
-                re = []
-                for i in fdata :
-                    if i[-1] == "\n" :
-                        i = i[:len(i) - 1]
-                        kaser = dskmod.StringTool.kaser(i, dal)
-                        re.append(kaser)
-                    else :
-                        kaser = dskmod.StringTool.kaser(i, dal)
-                        re.append(kaser)
-                restring = dskmod.Turning.list_turn_str(re, "\n")
-                try :
-                    with open(fname, "w+", encoding = "utf8") as f :
-                        f.write(restring + "\n" + str(dal))
-                except FileNotFoundError :
-                    print("Error")
-                    pass
+                if len(lister) >= 2 :
+                    fname = lister[1]
+                    dal = int(lister[2])
+                    try :
+                        with open(fname, "r+", encoding = "utf8") as f :
+                            fdata = f.readlines()
+                    except FileNotFoundError :
+                        print("找不到檔案")
+                        pass
+                    re = []
+                    for i in fdata :
+                        if i[-1] == "\n" :
+                            i = i[:len(i) - 1]
+                            kaser = dskmod.StringTool.kaser(i, dal)
+                            re.append(kaser)
+                        else :
+                            kaser = dskmod.StringTool.kaser(i, dal)
+                            re.append(kaser)
+                    restring = dskmod.Turning.list_turn_str(re, "\n")
+                    try :
+                        with open(fname, "w+", encoding = "utf8") as f :
+                            f.write(restring + "\n" + str(dal))
+                    except FileNotFoundError :
+                        print("Error")
+                        pass
+                elif len(lister) == 1 :
+                    print("dsksysfunction.py > kaser : 請輸入檔名和位移量")
             case "dsk" :
                 os.system('py dsk.py')
                 sleep(1)
@@ -161,7 +172,7 @@ def switch(lister : list) :                                        # switch
             case "allcmd" :
                 print("-"*115)
                 for i in cmdlist :
-                    cmd ="{l:20}|{cmdd:^80}".format(l = i, cmdd = cmdlist[i])
+                    cmd =" {l:20}|{cmdd:^80}".format(l = i, cmdd = cmdlist[i])
                     cmds = dskmod.StringTool.border(cmd, 115, line = "-", boder = "down")
                     print(cmds)
             case "ad" :

@@ -1,5 +1,4 @@
 import json, os
-from this import s
 
 coder = "utf8"
 
@@ -185,9 +184,6 @@ class Turning :
         for i in numlist :
             if num == numlist[i] :
                 return i
-
-    def character_around(s : str, around = s) :
-        pass
 
 class GeneralTools :
     def cs():
