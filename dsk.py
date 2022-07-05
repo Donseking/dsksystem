@@ -17,6 +17,9 @@ import pymodle.dsksysfunction as dun
 import pymodle.dskmod as dm
 from pymodle.dskmod import GeneralTools as G
 from pytube import YouTube as yt
+import requests
+from bs4 import BeautifulSoup
+from urllib import parse
 
 print(Fore.BLUE + Style.BRIGHT)
 cmdlist = p["cmdlist"]
@@ -103,6 +106,7 @@ if chose == "p":
 else :
     login(chose)
 colorama.init()
+G.cs()
 while True :
     PATH = os.getcwd()
     try :
@@ -117,6 +121,23 @@ while True :
                 pass
             elif c == "py" or c == "python" :
                 os.system("python")
+            elif c == "google" :
+                s = input("Google 搜尋 [ 影片 ] > ")
+                a = {"q" : s}
+                url = "https://www.google.com/search?" + parse.urlencode(a) + "&source=lnms&tbm=vid&sa=X&ved=2ahUKEwiWtIzLweD4AhUcUfUHHUBcC8AQ_AUoAXoECAMQAw&biw=1732&bih=981&dpr=1"
+                res = requests.get(url)
+                soup = BeautifulSoup(res.text, "html.parser")
+                t = soup.find_all("h3")
+                for i in t :
+                    s = i.parent["href"]
+                    print(i.string)
+                    for j in s[7:] :
+                        if j == "&" :
+                            k = s[7:s.index(j)]
+                    k = k.replace("%3F", "?")
+                    k = k.replace("%3D", "=")
+                    print(k)
+                    print("\n")
             elif c == "pytube" :
                 url = input("網址\n     > ")
                 y = yt(url)
