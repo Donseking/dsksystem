@@ -142,9 +142,34 @@ def MathMod(cmd : list) :
                     print(ans)
                 elif len(v1) != len(v2) :
                     print("dskmahsysfunction.py > mathmod > v+(cmd) : 向量要相同長度")
+            case "uqe" :
+                """
+                    一元二次方程式
+                """
+                try :
+                    la = input("方程係數 ax + by + c = 0 [ a, b, c ] \n    > ").split()
+                    la = list(map(int, la))
+                    if len(la) == 3 :
+                        ans = m.Unary_quadratic_equation(la)
+                        print(ans)
+                    else :
+                        print("dskmahsysfunction > uqe : 係數只能有三個")
+                except KeyboardInterrupt :
+                    print("dskmahsysfunction > uqe : 輸入錯誤")
+            case "blse" :
+                l1 = list(map(int, input("首聯立方程係數 [ a, b, c ]\n    > ").split()))
+                l2 = list(map(int, input("次聯立方程係數 [ a, b, c ]\n    > ").split()))
+                if len(l1) == 3 and len(l2) == 3 :
+                    ans = m.Binary_Linear_Simultaneous_Equations(l1, l2)
+                    print(ans)
+                else :
+                    print("dskmathsysfunction > blse : 方程係數一次只能有三個")
+            case "df" :
+                pass
             case _ :
                 G.cs()
                 print("沒有這個數學函式命令")
+
     elif prefix[0] == "#" :
         match prefix[1:] :
             case "ad" :
@@ -152,7 +177,7 @@ def MathMod(cmd : list) :
                 d = input("命令的簡單描述\n     > ")
                 de = input("命令的詳細描述\n     > ")
                 try :
-                    with open("pymodle\mathcmddata.json", "r", encoding = "UTF8") as f :
+                    with open("pymodle\\mathcmddata.json", "r", encoding = "UTF8") as f :
                         c = json.load(f)
                     mathcmdlist = c["mathcmdlist"]
                     decmdlist = c["decmdlist"]
@@ -162,13 +187,13 @@ def MathMod(cmd : list) :
                         "mathcmdlist": mathcmdlist,
                         "decmdlist" : decmdlist
                     }
-                    with open("pymodle\mathcmddata.json", "w") as f :
+                    with open("pymodle\\mathcmddata.json", "w") as f :
                         json.dump(c, f, indent = 4)
                 except FileNotFoundError :
                     print("dskmahsysfunction.py > mathmod > ad : 找不到檔案")
             case "mathcmd" :
                 try :
-                    with open("pymodle\mathcmddata.json", "r", encoding = "utf8") as f :
+                    with open("pymodle\\mathcmddata.json", "r", encoding = "utf8") as f :
                         data = json.load(f)
                     mathcmdlist = data["mathcmdlist"]
                     print(mathcmdlist[cmd[1]])
@@ -176,7 +201,7 @@ def MathMod(cmd : list) :
                     print("dskmahsysfunction.py > mathmod > mathcmd : 找不到檔案")
             case "dicmd" :
                 try :
-                    with open("pymodle\mathcmddata.json", "r", encoding = "utf8") as f :
+                    with open("pymodle\\mathcmddata.json", "r", encoding = "utf8") as f :
                         data = json.load(f)
                     decmdlist = data["decmdlist"]
                     print(decmdlist[cmd[1]])
