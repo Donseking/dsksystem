@@ -3,10 +3,11 @@ from pymodle.mathmod import MathTools as m
 from pymodle.dskmod import GeneralTools as G
 import pymodle.dskmod as dm
 
+class DskError(Exception):
+    pass
+
 def MathMod(cmd : list) :
     prefix = cmd[0]
-    # for i in cmd[1:] :
-    #     cmd[cmd.index(i)] = int(i)
     if prefix[0] != "#" :
         match prefix :
             case "D" :
@@ -104,6 +105,7 @@ def MathMod(cmd : list) :
                     print("次矩陣的行數必須和首矩陣的列數相同 [ 直向 ]")
                     pass
             case "ode" :
+                G.cs()
                 num = tuple(list(map(int, input("一元二次方程式的係數 [ 空格相隔 ] > ").split())))
                 ans = m.one_dimensional_equation(num)
                 if type(ans) == list :
@@ -111,16 +113,8 @@ def MathMod(cmd : list) :
                         print(i)
                 else :
                     print(ans)
-            case "itl" :
-                l = input("首直線方程式係數 ( a, b, c )\n   > ").split()
-                lm = input("首直線方程式係數 ( d, e, f )\n   > ").split()
-                l = list(map(int, l))
-                lm = list(map(int, lm))
-                if len(l) == 3 and len(lm) :
-                    ans = m.intersection_of_two_lines(l, lm)
-                for i in ans :
-                    print(i)
             case "vct" :
+                G.cs()
                 a = input("第一個座標點 > ").split()
                 b = input("第二個座標點 > ").split()
                 a = list(map(int, a))
@@ -128,11 +122,13 @@ def MathMod(cmd : list) :
                 ans = m.two_cdt_to_vector(a, b)
                 print(ans)
             case "vlon" :
+                G.cs()
                 v = input("向量 > ").split()
                 v = tuple(list(map(int, v)))
                 ans = m.vector_long(v)
                 print(ans)
             case "v+" :
+                G.cs()
                 v1 = input("首向量 > ").split()
                 v2 = input("次向量 > ").split()
                 v1 = tuple(list(map(int, v1)))
@@ -146,6 +142,7 @@ def MathMod(cmd : list) :
                 """
                     一元二次方程式
                 """
+                G.cs()
                 try :
                     la = input("方程係數 ax + by + c = 0 [ a, b, c ] \n    > ").split()
                     la = list(map(int, la))
@@ -157,6 +154,7 @@ def MathMod(cmd : list) :
                 except KeyboardInterrupt :
                     print("dskmahsysfunction > uqe : 輸入錯誤")
             case "blse" :
+                G.cs()
                 l1 = list(map(int, input("首聯立方程係數 [ a, b, c ]\n    > ").split()))
                 l2 = list(map(int, input("次聯立方程係數 [ a, b, c ]\n    > ").split()))
                 if len(l1) == 3 and len(l2) == 3 :
@@ -165,10 +163,80 @@ def MathMod(cmd : list) :
                 else :
                     print("dskmathsysfunction > blse : 方程係數一次只能有三個")
             case "df" :
-                pass
+                G.cs()
+                deg = int(input("函式最高次\n   > "))
+                al = list(map(int, input("函式係數\n    > ").split()))
+                ans = m.df(deg, al)
+                print(ans)
+            case "itgl" :
+                G.cs()
+                deg = int(input("函式最高次\n   > "))
+                ct = list(map(int, input("函式係數\n    > ").split()))
+                ch = input("是否有界 [ Y / N ]\n    > ").lower()
+                if ch == "y" :
+                    scp = list(map(int, input("上界 下界\n    > ").split()))
+                    if len(scp) == 2 :
+                        ans = m.integral(deg, ct, scope = True, uplim = scp[0], downlim = scp[1])
+                        print(ans)
+                    else :
+                        print("dskmahsysfunction > itgl : 上界下界總共兩個")
+                elif ch == "n" :
+                    ans = m.integral(deg, ct)
+                    print(ans)
+                else :
+                    print("dskmathsysfunction > itgl : 請正確輸入")
+            case "fun" :
+                G.cs()
+                deg = int(input("函式最高次 > "))
+                ct = list(map(int, input("函式係數 > ").split()))
+                print(m.fun(deg, ct))
+            case "lim" :
+                G.cs()
+                f = input("Function > ")
+                approach = input("趨近於 > ")
+                if approach == "oo" :
+                    ans = m.lim(f, approach)
+                    print(ans)
+                else :
+                    approach = int(approach)
+                    ans = m.lim(f, approach)
+                    print(ans)
+            case "rm" :
+                G.cs()
+                cdt = list(map(int, input("旋轉點 > ").split()))
+                td = int(input("角度 > "))
+                ans = m.rotation_matrix(cdt, td)
+                print(ans)
+            case "sum" :
+                G.cs()
+                f = input("方程式\n    > ")
+                mm = list(map(int, input("min max > ").split()))
+                ans = m.sumer(f, mm[0], mm[1])
+                print(ans)
+            case "log" :
+                G.cs()
+                b = int(input("底數 > "))
+                tn = int(input("真數 > "))
+                print(m.log_(b, tn))
+            case "fc" :
+                G.cs()
+                try :
+                    x = input("階乘 > ")
+                    print(m.fact(x))
+                except :
+                    print("dsksysfunction > fct : 輸入錯誤")
             case _ :
                 G.cs()
-                print("沒有這個數學函式命令")
+                try :
+                    f = dm.Turning.list_turn_str(cmd, " ")
+                    ans = m.symadd(f)
+                    if type(ans) != type(m.symadd("c")):
+                        G.cs()
+                        print(ans)
+                    else :
+                        raise DskError
+                except DskError:
+                    print("系統沒有這個指令")
 
     elif prefix[0] == "#" :
         match prefix[1:] :
