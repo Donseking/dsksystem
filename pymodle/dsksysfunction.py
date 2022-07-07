@@ -1,6 +1,6 @@
-import os, json
+import os, json, shutil
 
-os.system("py s.py")
+# os.system("py s.py")
 filename = "dskdata.json"
 try :
     with open(filename, encoding = "UTF8") as f :
@@ -8,7 +8,6 @@ try :
 except FileNotFoundError :
     print("dsk.py > open dskdata.json : 找不到檔案")
     pass
-os.system("py k.py")
 
 from pymodle.dskmod import GeneralTools as G
 from pymodle.dskmod import FileTool
@@ -32,7 +31,7 @@ def switch(lister : list) :                                        # switch
                 print(o)
             case "et" :
                 G.cs()
-                # os.system("py k.py")
+                os.system("py k.py")
                 print(Style.RESET_ALL)
                 print(exit())
             case "cd" :
@@ -42,8 +41,6 @@ def switch(lister : list) :                                        # switch
                     os.chdir(o)
                 except :
                     print("系統找不到路徑")
-                path = os.getcwd()
-                print(path)
             case "path" :
                 G.cs()
                 print(os.getcwd())
@@ -82,6 +79,17 @@ def switch(lister : list) :                                        # switch
                     os.remove(lister[1])
                 except :
                     print("error")
+            case "defolder" :
+                G.cs()
+                try :
+                    F = input("文件夾 > ")
+                    G.cs()
+                    if os.path.isdir(F) :
+                        shutil.rmtree(F)
+                    else :
+                        print(f"dsksysfunction > defolder : {F} 不是資料夾")
+                except KeyboardInterrupt:
+                    print("dsksysfunction > defolder : 輸入錯誤")
             case "rename" :
                 G.cs()
                 try :
@@ -90,10 +98,27 @@ def switch(lister : list) :                                        # switch
                     print("error")
             case "mdf" :
                 G.cs()
-                fpath = Path(lister[1])
-                fpath.touch(exist_ok=True)
-                f = open(fpath)
-                f.close()
+                ch = input("建立 :\n\n - 檔案 [f]\n\n -  資料夾 [F]\n\n      > ")
+                if ch == "f" :
+                    try :
+                        name = input("檔案名稱\n    > ")
+                        fpath = Path(name)
+                        fpath.touch(exist_ok = True)
+                        f = open(fpath)
+                        f.close()
+                    except KeyboardInterrupt :
+                        print("dsksysfunction > -mdf : 輸入錯誤")
+                elif ch == "F" :
+                    try :
+                        name = input("資料夾名稱\n    > ")
+                        if not os.path.isdir(name):
+                            os.mkdir(name)
+                        else :
+                            print(f"dsksysfunction > -mdf : {name} 存在")
+                    except KeyboardInterrupt :
+                        print("dsksysfunction > -mdf : 輸入錯誤")
+                else :
+                    print("dsksysfunction > -mdf : 輸入錯誤")
             case "all-user" :
                 G.cs()
                 for i in userlist :
@@ -127,7 +152,7 @@ def switch(lister : list) :                                        # switch
                         with open(fname, "r+", encoding = "utf8") as f :
                             fdata = f.readlines()
                     except FileNotFoundError :
-                        print("找不到檔案")
+                        print("dsksysfunction.py > kaser : 找不到檔案")
                         pass
                     re = []
                     for i in fdata :
@@ -143,11 +168,12 @@ def switch(lister : list) :                                        # switch
                         with open(fname, "w+", encoding = "utf8") as f :
                             f.write(restring + "\n" + str(dal))
                     except FileNotFoundError :
-                        print("Error")
+                        print("dsksysfunction > kaser : 找不到檔案")
                         pass
                 elif len(lister) == 1 :
                     print("dsksysfunction.py > kaser : 請輸入檔名和位移量")
             case "dsk" :
+                os.system("py k.py")
                 os.system('py dsk.py')
                 sleep(1)
                 print(exit())
@@ -159,7 +185,7 @@ def switch(lister : list) :                                        # switch
                 try :
                     filedata = dskmod.Turning.file_turn_bin(file)
                 except FileNotFoundError :
-                    print("找不到檔案")
+                    print("dsksysfunction > tb : 找不到檔案")
                     pass
                 with open(resultname, "w+", encoding = "utf8") as f :
                     f.write(filedata)
@@ -196,6 +222,45 @@ def switch(lister : list) :                                        # switch
                 print(exit())
             case "dt" :
                 dskmod.FileTool.detailcmd()
+            case "mv" :
+                file = input("要移動的檔案\n    > ")
+                topath = input("要移動到的位址\n    > ")
+                try :
+                    if os.path.isfile(file) :
+                        if os.path.isdir(topath) :
+                            os.system(f"move {file} {topath}")
+                        else :
+                            os.mkdir(topath)
+                            os.system(f"move {file} {topath}")
+                    else :
+                        print(f"dsksysfunction > mv : {file} 不是一個檔案")
+                except FileNotFoundError :
+                    print("dsksysfunction.py > -mv : 找不到檔案")
+            case "cpf" :
+                G.cs()
+                ch = input("要複製 檔案[f] 還是 資料夾[F]\n   > ")
+                if ch == "f" :
+                    G.cs()
+                    try :
+                        oldfname = input("要複製的檔案\n     > ")
+                        newfname = input("複製的檔案名\n     > ")
+                        if os.path.isfile(oldfname) :
+                            shutil.copyfile(oldfname, newfname)
+                        else :
+                            print(f"dsksysfunction > cpf : {oldfname} 不存在")
+                    except KeyboardInterrupt:
+                        print("dsksysfunction > -cpf : 輸入錯誤")
+                elif ch == "F" :
+                    G.cs()
+                    try :
+                        oldfname = input("要複製的資料夾\n     > ")
+                        newfname = input("複製的資料夾名\n     > ")
+                        if os.path.isdir(oldfname) :
+                            shutil.copy(oldfname, newfname)
+                        else :
+                            print(f"dsksysfunction > cpf : {oldfname} 不存在")
+                    except KeyboardInterrupt:
+                        print("dsksysfunction > -cpf : 輸入錯誤")
             case "" :
                 G.cs()
                 print("請輸入命令")

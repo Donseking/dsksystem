@@ -8,8 +8,15 @@ from pymodle.dskmahsysfunction import MathMod
 colorama.init()
 G.cs()
 
-print("-"*15 + "+ dskmath +" + "-"*15 + "\n")
+print("-"*15 + "+【 dskmath 】+" + "-"*15 + "\n")
 print(Fore.BLUE + Style.BRIGHT)
+print("""
+
+數學模式下，直接將函式命令輸入電腦即可。
+開根號 sqrt()
+虛數 I
+
+""")
 
 while True :
     try :

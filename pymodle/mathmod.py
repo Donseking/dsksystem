@@ -1,3 +1,5 @@
+from __future__ import division
+from sympy import *
 import math
 import numpy as np
 
@@ -91,6 +93,9 @@ class MathTools :
         else :
             print("MathMod - matrix_pultiplication : 輸入的次矩陣行數[ 橫向 ]要與首矩陣的列數[ 直向 ]相同")
 
+    def addmatrix(a : list, b : list) :
+        pass
+
 
     # cdt (x, y)  line [ax + by + c = 0]: (a, b, c) || cdt (x, y, z) line [ax + by + cz + d = 0]: (a, b, c, d)
     def D(cdt : tuple, line : tuple) :
@@ -178,3 +183,22 @@ class MathTools :
         else :
             x = str(l/k)
         return (x, y)
+
+    def Unary_quadratic_equation(l : list):
+        x = symbols("x", communtative = True)
+        f = symbols("f", cls = Function)
+        if len(l) == 3 :
+            f = (x**2)*l[0] + l[1]*x + l[2]
+        return roots(f)
+
+    def Binary_Linear_Simultaneous_Equations(l1 : list, l2 : list):
+        x, y = symbols("x y", communtative = True)
+        f1, f2 = symbols("f1 f2", cls = Function)
+        # f2 = symbols("f2", cls = Function)
+        f1 = l1[0]*x + l1[1]*y + l1[2]
+        f2 = l2[0]*x + l2[1]*y + l2[2]
+        ans = solve((f1, f2), (x, y))
+        return ans
+
+    def lim():
+        pass
