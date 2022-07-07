@@ -7,7 +7,6 @@ try :
         p = json.load(f)
 except FileNotFoundError :
     print("dsk.py > open dskdata.json : 找不到檔案")
-    pass
 
 import colorama
 from colorama import Fore
@@ -18,6 +17,7 @@ from pymodle.dskmod import GeneralTools as G
 from pytube import YouTube as yt
 from bs4 import BeautifulSoup
 from urllib import parse
+import requests
 
 print(Fore.BLUE + Style.BRIGHT)
 cmdlist = p["cmdlist"]

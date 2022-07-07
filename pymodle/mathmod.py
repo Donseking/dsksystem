@@ -1,7 +1,6 @@
 from __future__ import division
 from sympy import *
 import math
-import numpy as np
 
 class MathTools :
 
@@ -48,54 +47,53 @@ class MathTools :
 
     # [a, b] <- row1
     # [c, d] <- row2
-    def second_order(row1 : list, row2 : list) :
-        if len(row1) == 2 and len(row2) == 2 :
-            answer = row1[0]*row2[1] - row1[1]*row2[0]
-            return answer
+    def third_order(a : list) :
+        if len(a) == 2 :
+            if len(a[0]) == 2 and len(a[1]) == 2 and len(a[2]) == 2 :
+                a = Matrix(a).det()
+            else :
+                print("dskmahsysfunction > third_order : 每行都要有兩個元素")
         else :
-            return None
+            print("dskmahsysfunction > third_order : 總共要兩行")
+        return a
 
 
     # [a, b, c] <- row1
     # [d, e, f] <- row2
     # [g, h, i] <- row3
-    def third_order(row1 : tuple, row2 : tuple, row3 : tuple) :
-        if len(row1) == 3 and len(row2) == 3 and len(row3) == 3 :
-            ans1 = row1[0]*row2[1]*row3[2] + row1[1]*row2[2]*row3[0] + row2[0]*row3[1]*row1[2]
-            ans2 = row1[2]*row2[1]*row3[0] + row1[0]*row2[2]*row3[1] + row1[1]*row2[0]*row3[2]
-            return ans1 - ans2
+    def third_order(a : list) :
+        if len(a) == 3 :
+            if len(a[0]) == 3 and len(a[1]) == 3 and len(a[2]) == 3 :
+                a = Matrix(a).det()
+            else :
+                print("dskmahsysfunction > third_order : 每行都要有三個元素")
         else :
-            return None
+            print("dskmahsysfunction > third_order : 總共要三行")
+        return a
+
 
     def matrix_multiplication(A : list, B : list) :
-        a = False
-        b = False
-        if len(A[0]) == len(B) :
-            rowlong = len(A[0])
-            for i in range(1, len(A)) :
-                if len(A[i]) != rowlong :
-                    print("MathMod - matrix_pultiplication : 輸入的首矩陣列數並沒有相同的長度")
-                    break
-                else :
-                    a = True
-            rowlong = len(B[0])
-            for i in range(1, len(B)) :
-                if len(B[i]) != rowlong :
-                    print("MathMod - matrix_pultiplication : 輸入的次矩陣列數並沒有相同的長度")
-                    break
-                else :
-                    b = True
-            if a == True and b == True :
-                c = np.array(A)
-                d = np.array(B)
-                ans = c.dot(d)
-                return ans
-        else :
-            print("MathMod - matrix_pultiplication : 輸入的次矩陣行數[ 橫向 ]要與首矩陣的列數[ 直向 ]相同")
+        m = Matrix(A)
+        n = Matrix(B)
+        ans = m*n
+        return ans
 
     def addmatrix(a : list, b : list) :
-        pass
+        m = Matrix(a)
+        n = Matrix(b)
+        ans = m + n
+        return ans
 
+    def subtractmatrix(a : list, b : list) :
+        m = Matrix(a)
+        n = Matrix(b)
+        ans = m - n
+        return ans
+
+    def inverse_matrix(m : list) :
+        m = Matrix(m)
+        ans = m**-1
+        return ans
 
     # cdt (x, y)  line [ax + by + c = 0]: (a, b, c) || cdt (x, y, z) line [ax + by + cz + d = 0]: (a, b, c, d)
     def D(cdt : tuple, line : tuple) :
@@ -112,17 +110,13 @@ class MathTools :
 
     # line : ax2 + bx + c = 0 (a, b, c)
     def one_dimensional_equation(line : tuple) :
-        if (line[1]**2 - 4*line[0]*line[2]) > 0 and line[0] != 0:
-            d = 2*line[0]
-            inum = str(line[1]**2 - 4*line[0]*line[2])
-            x1 = str(0 - line[1]) + " + ( " + inum + " )^0.5  / " + str(d)
-            x2 = str(0 - line[1]) + " - ( " + inum + " )^0.5  / " + str(d)
-            return [x1, x2]
-        elif (line[1]**2 - 4*line[0]*line[2]) == 0 and line[0] != 0 :
-            x1 = "[ -" + str(line[1]) + "+ (" + str(line[1]) + "^2 + " + "4*" + str(line[0]) + "*" + str(line[2]) + ")^0.5 ] / 2*" + str(line[0])
-            return x1
+        # x = symbols("x", communtation = True)
+        if len(line) == 3 :
+            f = symbols("f", cls = Function)
+            f = MathTools.fun(2, list(line))
+            return roots(f)
         else :
-            return "無解"
+            print("mathmod > one_dimensional_equation : 係數總共三個")
 
     # Vector (a, b) | (a, b, c)
     def vector_long(v : tuple) :
@@ -157,33 +151,6 @@ class MathTools :
         else :
             return "mathmod > two_cdt_to_vector : 輸入錯誤"
 
-    # ax + by + c = 0
-    # L = (a, b, c) | M = (d, e, f) 係 數
-    def intersection_of_two_lines(L : list, M : list) :
-        a = L[0]
-        b = L[1]
-        c = L[2]
-        d = M[0]
-        e = M[1]
-        f = M[2]
-        g = b*d - e*a
-        h = f*a - c*d
-        k = -1*a*g
-        l = b*h - c*g
-        if type(h/g) == float :
-            i = h - (h%g)
-            j = i/g
-            y = str(int(j)) + " + " + str(int(h%g)) + "/" + str(int(g))
-        else :
-            y = str(h/g)
-        if type(l/k) == float :
-            m = l%k
-            n = (l - m)/k
-            x = str(int(n)) + " + " + str(int(m)) + '/' + str(int(k))
-        else :
-            x = str(l/k)
-        return (x, y)
-
     def Unary_quadratic_equation(l : list):
         x = symbols("x", communtative = True)
         f = symbols("f", cls = Function)
@@ -200,5 +167,82 @@ class MathTools :
         ans = solve((f1, f2), (x, y))
         return ans
 
-    def lim():
-        pass
+    def df(deg : int, arg : list):
+        x = symbols("x", communtation = True)
+        f = symbols("f", cls = Function)
+        f = arg[0]*x**deg
+        if len(arg) == deg + 1 :
+            deg -= 1
+            for i in range(1, deg + 2) :
+                f += arg[i]*x**deg
+                deg -= 1
+            return f.diff()
+        else :
+            return "mathmod > df : 係數總數比最高次多一"
+
+    def lim(fk, d):
+        x = Symbol("x")
+        return limit(sympify(fk), x, d)
+
+    def fun(deg : int, arg : list):
+        x = symbols("x", communtation = True)
+        f = symbols("f", cls = Function)
+        f = arg[0]*x**deg
+        if len(arg) == deg + 1 :
+            deg -= 1
+            for i in range(1, deg + 2) :
+                f += arg[i]*x**deg
+                deg -= 1
+            return f
+        else :
+            return "mathmod > fun : 係數總數比最高次多一"
+
+    def integral(deg : int, cft : list, scope = False, uplim = 0, downlim = 0) :
+        if scope == False :
+            x = symbols("x", communtation = True)
+            c = symbols("c", communtation = True)
+            f = symbols("f", cls = Function)
+            cft[0] = Rational(cft[0], (deg + 1))
+            f = cft[0]*x**(deg + 1)
+            deg -= 1
+            for i in range(1, deg + 2) :
+                cft[i] = Rational(cft[i], (deg + 1))
+                f += cft[i]*x**(deg + 1)
+                deg -= 1
+            return f + c
+        else :
+            x = symbols("x", communtation = True)
+            c = symbols("c", communtation = True)
+            f = symbols("f", cls = Function)
+            cft[0] = Rational(cft[0], (deg + 1))
+            f = cft[0]*x**(deg + 1)
+            deg -= 1
+            for i in range(1, deg + 2) :
+                cft[i] = Rational(cft[i], (deg + 1))
+                f += cft[i]*x**(deg + 1)
+                deg -= 1
+            ans = f.evalf(subs = {x : uplim}) - f.evalf(subs = {x : downlim})
+            return ans
+
+    def rotation_matrix(cdt : list, thida):
+        thida = pi * Rational(thida, 180)
+        a = [cos(thida), -sin(thida)]
+        b = [sin(thida), cos(thida)]
+        m = Matrix([a, b])
+        n = Matrix(cdt)
+        ans = m*n
+        return ans
+
+    def sumer(fun, min, max):
+        x = Symbol("x")
+        ans = summation(simplify(fun), (x, min, max))
+        return ans
+
+    def symadd(f) :
+        return sympify(f)
+
+    def log_(base, true_number):
+        return log(true_number, base)
+
+    def fact(x):
+        return factorial(sympify(x))
