@@ -8,8 +8,10 @@ def is_adman() :
     except :
         return False
 
+p = os.path.abspath(os.getcwd())
+p = p + "\\pymodle\\bat;"
 if is_adman() :
-    os.system("setx path D:\\dsk\\pythons\\dsksysproject\\dsksystem\\pymodle\\bat;%path% /m")
+    os.system(f"setx path {p}")
 else :
     if sys.version_info[0] == 3 :
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
