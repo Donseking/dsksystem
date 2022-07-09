@@ -4,7 +4,15 @@ from pymodle.dskmod import GeneralTools as G
 import pymodle.dskmod as dm
 
 class DskError(Exception):
-    pass
+
+    def __init__(self, msg):
+        super().__init__(msg)
+
+def textDskError(cd) :
+    if type(cd) != type(m.sad("c")):
+        return cd
+    else :
+        raise DskError("型別錯誤")
 
 def MathMod(cmd : list) :
     prefix = cmd[0]
@@ -124,7 +132,7 @@ def MathMod(cmd : list) :
             case "vlon" :
                 G.cs()
                 v = input("向量 > ").split()
-                v = tuple(list(map(int, v)))
+                v = tuple(list(map(float, v)))
                 ans = m.vector_long(v)
                 print(ans)
             case "v+" :
@@ -145,7 +153,7 @@ def MathMod(cmd : list) :
                 G.cs()
                 try :
                     la = input("方程係數 ax + by + c = 0 [ a, b, c ] \n    > ").split()
-                    la = list(map(int, la))
+                    la = list(map(float, la))
                     if len(la) == 3 :
                         ans = m.Unary_quadratic_equation(la)
                         print(ans)
@@ -155,8 +163,8 @@ def MathMod(cmd : list) :
                     print("dskmahsysfunction > uqe : 輸入錯誤")
             case "blse" :
                 G.cs()
-                l1 = list(map(int, input("首聯立方程係數 [ a, b, c ]\n    > ").split()))
-                l2 = list(map(int, input("次聯立方程係數 [ a, b, c ]\n    > ").split()))
+                l1 = input("首聯立方程係數 [ a, b, c ]\n    > ").split()
+                l2 = input("次聯立方程係數 [ a, b, c ]\n    > ").split()
                 if len(l1) == 3 and len(l2) == 3 :
                     ans = m.Binary_Linear_Simultaneous_Equations(l1, l2)
                     print(ans)
@@ -225,16 +233,20 @@ def MathMod(cmd : list) :
                     print(m.fact(x))
                 except :
                     print("dsksysfunction > fct : 輸入錯誤")
+            case "ev" :
+                G.cs()
+                fun = input("方程式\n    > ")
+                x = input("值\n    > ")
+                ans = m.evaluate(fun, int(x))
+                G.cs()
+                print(ans)
             case _ :
                 G.cs()
                 try :
                     f = dm.Turning.list_turn_str(cmd, " ")
-                    ans = m.symadd(f)
-                    if type(ans) != type(m.symadd("c")):
-                        G.cs()
-                        print(ans)
-                    else :
-                        raise DskError
+                    ans = m.sad(f)
+                    G.cs()
+                    print(textDskError(ans))
                 except DskError:
                     print("系統沒有這個指令")
 

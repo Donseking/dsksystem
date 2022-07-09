@@ -1,6 +1,10 @@
 from __future__ import division
-from sympy import *
-import math
+try :
+    from sympy import *
+    import math
+    import os
+except :
+    os.system("pip install sympy")
 
 class MathTools :
 
@@ -159,9 +163,12 @@ class MathTools :
         return roots(f)
 
     def Binary_Linear_Simultaneous_Equations(l1 : list, l2 : list):
+        for i in l1 :
+            l1[l1.index(i)] = sympify(i)
+        for i in l2 :
+            l2[l2.index(i)] = sympify(i)
         x, y = symbols("x y", communtative = True)
         f1, f2 = symbols("f1 f2", cls = Function)
-        # f2 = symbols("f2", cls = Function)
         f1 = l1[0]*x + l1[1]*y + l1[2]
         f2 = l2[0]*x + l2[1]*y + l2[2]
         ans = solve((f1, f2), (x, y))
@@ -238,7 +245,7 @@ class MathTools :
         ans = summation(simplify(fun), (x, min, max))
         return ans
 
-    def symadd(f) :
+    def sad(f) :
         return sympify(f)
 
     def log_(base, true_number):
@@ -246,3 +253,14 @@ class MathTools :
 
     def fact(x):
         return factorial(sympify(x))
+
+    def evaluate(f, num) :
+        x = Symbol("x")
+        f = sympify(f)
+        return f.subs(x, num)
+
+
+class Physical_Formula :
+
+    def velocity(s : int, t : int) :
+        return Rational(s, t)

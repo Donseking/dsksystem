@@ -8,16 +8,22 @@ try :
 except FileNotFoundError :
     print("dsk.py > open dskdata.json : 找不到檔案")
 
-import colorama
-from colorama import Fore
-from colorama import Style
-import pymodle.dsksysfunction as dun
-import pymodle.dskmod as dm
-from pymodle.dskmod import GeneralTools as G
-from pytube import YouTube as yt
-from bs4 import BeautifulSoup
-from urllib import parse
-import requests
+try :
+    import colorama
+    from colorama import Fore
+    from colorama import Style
+    import pymodle.dsksysfunction as dun
+    import pymodle.dskmod as dm
+    from pymodle.dskmod import GeneralTools as G
+    from pytube import YouTube as yt
+    from bs4 import BeautifulSoup
+    from urllib import parse
+    import requests
+except ModuleNotFoundError:
+    mod = ["colorama", "pytube", "beautifulsoup", "requests"]
+    for i in mod :
+        os.system(f"pip install {i}")
+
 
 print(Fore.BLUE + Style.BRIGHT)
 cmdlist = p["cmdlist"]

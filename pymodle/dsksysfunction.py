@@ -1,4 +1,5 @@
 import os, json, shutil
+import sys
 
 # os.system("py s.py")
 filename = "dskdata.json"
@@ -31,7 +32,8 @@ def switch(lister : list) :                                        # switch
                 print(o)
             case "et" :
                 G.cs()
-                os.system("py k.py")
+                if sys.argv[0] == "dsk.py" :
+                    os.system("py k.py")
                 print(Style.RESET_ALL)
                 print(exit())
             case "cd" :
